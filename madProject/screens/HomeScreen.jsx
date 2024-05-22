@@ -8,7 +8,14 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { auth } from '../config/firebase';
 import { signOut } from 'firebase/auth';
 import useAuth from '../hooks/useAuth';
+import db from "../config/firebase";
+import { useEffect } from 'react';
+import { onSnapshot } from 'firebase/firestore';
+import { collection } from 'firebase/firestore';
 export default function HomeScreen() {
+
+
+
 const {user}= useAuth();
   const handleLogout = async()=>{
 await signOut(auth);

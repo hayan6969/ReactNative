@@ -3,24 +3,88 @@ import { StatusBar } from 'expo-status-bar'
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import {useFonts} from 'expo-font';
+import '../config/firebase';
+import { useEffect } from 'react';
+import {setDoc,doc, addDoc } from 'firebase/firestore';
+
 
 import LottieView from 'lottie-react-native';
 import React from 'react'
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../config/firebase';
+import { auth,db, userRef } from '../config/firebase';
+import useAuth from '../hooks/useAuth';
+
 
 export default function SignupScreen() {
+
+  let userId='';
+
+  
   const navigation = useNavigation();
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
   const [name, setName] = React.useState('')
   const handleSubmit=async()=>{
     if(email&&password){
-      try {
-        await createUserWithEmailAndPassword(auth,email,password)
+
+      
+    
+     
+
+      try { 
+        // take user id and store in a variable 
+        const createUserResult = await createUserWithEmailAndPassword(auth, email, password);
+        if (createUserResult.user) {
+          console.log('User created successfully:', createUserResult.user.uid);
+          userId = createUserResult.user.uid;
+          console.log('User ID:', userId);
+        } else {
+          console.log('User creation may not be complete yet.');
+        }  
+
+        try {
+          // Use the userId obtained from createUserResult
+          await addDoc(userRef, {
+            name,
+            email,
+            uid:createUserResult.user.uid,
+            role:'admin'
+          });
+          console.log('User data successfully added to Firestore. with uid : ',userId);
+        } catch (error) {
+          console.log('Error adding user data to firestore:', error.message , "uid: ",userId);
+        }
+       
+         
+        
+        
+
+        
+      
+        
       } catch (error) {
         console.log('got error: ',error.message);
       }
+
+    //  try {
+    //    setUserId(user.uid);
+    //   console.log('User ID:', userId);
+    //  } catch (error) {
+    //   console.log('got error while setting uid: ',error.message);
+    //  }
+
+      // try {
+      //   let doc = await addDoc(userRef,{
+      //     name,
+      //     email,
+      //     userId,
+        
+      //   })
+        
+      // } catch (error) {
+      //   console.log('got error: ',error.message);
+      // }
+     
     }
 
   
