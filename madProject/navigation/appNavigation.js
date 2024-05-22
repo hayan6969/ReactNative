@@ -9,64 +9,16 @@ import AdminHome from '../adminScreens/AdminHome';
 import { stripBaseUrl } from 'expo-router/build/fork/getStateFromPath';
 import { userRef } from '../config/firebase';
 import { query, where } from 'firebase/firestore';
+import { collection, getDocs } from "firebase/firestore"; 
+import { useEffect } from 'react';
+import { useState } from 'react';
+
 
 
 const Stack = createNativeStackNavigator();
 
 export default function AppNavigation() {
-
-
-const {user}= useAuth();
-
-    
-if(user){
-    let userRole='';
-    let userId=user.uid;
-    const fetchUserRole = async () => {
-        const q = query(userRef,where('userId','==',userId));
-        const querySnapshot = await getDocs(q);
-        querySnapshot.forEach((doc) => {
-            userRole=doc.data().role;
-            console.log('User role:', userRole);
-        });
-    }
-    
-
-    //taking user role from firestore from collection reference useRef  and checking its role 
-
-    
-            if(userRole=='admin'){
-                console.log('User is admin', );
-                
-               
-               return(
-                <Stack.Navigator initialRouteName='Admin'>
-                <Stack.Screen options={{headerShown:false}} name="Admin" component={AdminHome} />
-                  
-                </Stack.Navigator>
-               )
-        }
-        else{
-            console.log('User is not admin','userID : ',userId,'userRole: ',userRole );
-           return (
-            <Stack.Navigator initialRouteName='Admin'>
-            <Stack.Screen options={{headerShown:false}} name="Admin" component={AdminHome} />
-              
-            </Stack.Navigator>
-           )
-        }
-
-
-    }
-
-
-    
-
-
-
-    
-
-else{
+ 
     return (
         
       
@@ -77,10 +29,11 @@ else{
           <Stack.Screen options={{headerShown:false}} name="Welcome" component={WelcomeScreen} />
           
           <Stack.Screen options={{headerShown:false}} name="Login" component={LoginScreen} />
+          
         </Stack.Navigator>
 
       
     );
-}
+
    
   }

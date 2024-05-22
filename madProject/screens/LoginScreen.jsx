@@ -6,6 +6,11 @@ import { useNavigation } from '@react-navigation/native';
 import {useFonts} from 'expo-font';
 import { auth } from '../config/firebase';
 import useAuth from '../hooks/useAuth';
+import Loader from '../screens/Loader'
+import { collection, getDocs } from "firebase/firestore"; 
+import { useEffect } from 'react';
+import { userRef } from '../config/firebase';
+
 
 
 
@@ -34,10 +39,77 @@ if (!loaded) {
 const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
   const [name, setName] = React.useState('')
+  let userRole = '';
+  let userId='';
+  const [loading, setLoading] = React.useState(false);
+  const {user}= useAuth();
+  const fetchData = async () => {
+    console.log('fetching data');
+    const querySnapshot = await getDocs(userRef);
+    console.log('got query snapshot');
+    querySnapshot.forEach((doc) => {
+        console.log('inside for each loop');
+      if (doc.data().uid == userId) {
+        console.log('user role before assigning is : ',doc.data().role);
+        userRole=doc.data().role;
+        console.log('User Role is : ',userRole)
+      }
+      })
+       }
+ 
+
+
+  useEffect(()=>{
+if(userRole=='admin'){
+  console.log('user role is admin');
+  loading=false;
+  navigation.navigate('AdminHome')
+}
+else if(userRole=='student'){
+  console.log('user role is student');
+  loading=false;
+  navigation.navigate('Home')
+}
+
+else{
+  console.log('no user role')
+}
+  },[userRole])
+  
   const handleSubmit=async()=>{
     if(email&&password){
       try {
-        await signInWithEmailAndPassword(auth,email,password);
+        
+        setLoading(true);
+
+        //WHEN the sign in is succesfull i wanna use .then to then fetchData function
+
+        await signInWithEmailAndPassword(auth,email,password).then(()=>{
+         userId = auth.currentUser.uid;
+        console.log('User ID is : ',userId);
+        console.log('now entering the role settign phase');
+         fetchData().then(()=>{console.log('fetching is done', ' user role is ', userRole)
+
+         if(userRole=='admin'){
+          console.log('THEE user role is admin');
+          setLoading(false);
+          navigation.navigate('Admin')
+        }
+        else if(userRole=='student'){
+          console.log('THEE user role is student');
+          setLoading(false);
+          navigation.navigate('Home')
+        }
+      
+         });
+        
+        
+          
+          
+        });
+        
+        
+        
       } catch (error) {
         console.log('got error: ',error.message);
       }
@@ -46,6 +118,15 @@ const [email, setEmail] = React.useState('')
   
   }
 
+
+if(loading){
+  return (
+    <Loader/>
+  
+  )
+}
+
+else {
   return (
     
     <View className="flex-1 bg-white " style={{backgroundColor:'#7b49de'}}>
@@ -87,7 +168,7 @@ const [email, setEmail] = React.useState('')
             <Text className="text-gray-700" style={{fontFamily:"Poppins-Bold"}}>Forgot Password?</Text>
 
           </TouchableOpacity>
-          <TouchableOpacity onPress={handleSubmit} className="pu-3 bg-yellow-400 rounded-xl">
+          <TouchableOpacity onPress={handleSubmit}  className="pu-3 bg-yellow-400 rounded-xl">
             <Text  style={{fontFamily:"Poppins-Bold"}} className=" text-2xl p-2 text-center text-gray-700">
               Login
             </Text>
@@ -117,6 +198,11 @@ const [email, setEmail] = React.useState('')
       
     </View>
   )
+}
+
+
+
+  
 }
 
 export default LoginScreen

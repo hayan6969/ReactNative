@@ -6,6 +6,8 @@ import { FontAwesome6 } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { Fontisto } from '@expo/vector-icons';
+import { auth } from '../config/firebase';
+import { signOut } from 'firebase/auth';
 
 
 import LottieView from 'lottie-react-native';
@@ -13,10 +15,25 @@ import {useFonts} from 'expo-font';
 import { SimpleLineIcons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Link,useRouter } from 'expo-router';
+import { useNavigation } from '@react-navigation/native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useAuth } from '../hooks/useAuth';
+
+
 
 const AdminHome = () => {
+  const navigation = useNavigation();
+
+  const handleLogout = async()=>{
+await signOut(auth).then(()=>{
+  console.log('logged out');
+  navigation.navigate('Welcome');
+
+
+});
+  }
+
     const [loaded, ferror] = useFonts({
         'Poppins-Black': require('../assets/fonts/Poppins-Black.ttf'),
         'Poppins-Bold': require('../assets/fonts/Poppins-Bold.ttf'),
@@ -89,7 +106,7 @@ const AdminHome = () => {
         <TouchableOpacity className="bg-yellow-400 w-[90px] h-[70px] flex flex-col justify-center items-center rounded-xl">
         <Ionicons name="settings-outline" size={24} color="black" />
                 <Text style={{fontFamily:"Poppins-Bold"}}>Settings</Text></TouchableOpacity>
-                <TouchableOpacity className="bg-yellow-400 w-[90px] h-[70px] flex flex-col justify-center items-center rounded-xl">
+                <TouchableOpacity onPress={handleLogout}  className="bg-yellow-400 w-[90px] h-[70px] flex flex-col justify-center items-center rounded-xl">
                 <SimpleLineIcons name="logout" size={24} color="black" />
                                 <Text style={{fontFamily:"Poppins-Bold"}}>Logout</Text></TouchableOpacity>
           </View>
