@@ -12,6 +12,7 @@ import { query, where } from 'firebase/firestore';
 import { collection, getDocs } from "firebase/firestore"; 
 import { useEffect } from 'react';
 import { useState } from 'react';
+import AdminProfile from '../adminScreens/AdminProfile';
 
 
 
@@ -29,6 +30,7 @@ export default function AppNavigation() {
           <Stack.Screen options={{headerShown:false}} name="Welcome" component={WelcomeScreen} />
           
           <Stack.Screen options={{headerShown:false}} name="Login" component={LoginScreen} />
+          <Stack.Screen options={{headerShown:false}} name="Aprofile" component={AdminProfile} />
           
         </Stack.Navigator>
 

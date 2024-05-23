@@ -25,6 +25,11 @@ import { useAuth } from '../hooks/useAuth';
 const AdminHome = () => {
   const navigation = useNavigation();
 
+  const handleprofile =()=>{  
+    console.log('profile clicked');
+    navigation.navigate('Aprofile');
+  }
+
   const handleLogout = async()=>{
 await signOut(auth).then(()=>{
   console.log('logged out');
@@ -100,7 +105,7 @@ await signOut(auth).then(()=>{
     <View className="flex flex-row justify-center  ">
     <View  className="  border-4  h-[90px] w-full flex flex-row justify-evenly items-center    mx-10   " style={{borderTopLeftRadius:50, borderTopRightRadius:50, backgroundColor:"#7b49de"}}>
        
-        <TouchableOpacity className="bg-yellow-400 w-[90px] h-[70px] flex flex-col justify-center items-center rounded-xl">
+        <TouchableOpacity onPress={handleprofile} className="bg-yellow-400 w-[90px] h-[70px] flex flex-col justify-center items-center rounded-xl">
        <MaterialCommunityIcons name="face-man-profile" size={24} color="black" />
         <Text style={{fontFamily:"Poppins-Bold"}}>Profile</Text></TouchableOpacity>
         <TouchableOpacity className="bg-yellow-400 w-[90px] h-[70px] flex flex-col justify-center items-center rounded-xl">
