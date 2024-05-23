@@ -43,15 +43,15 @@ const [email, setEmail] = React.useState('')
   let userId='';
   const [loading, setLoading] = React.useState(false);
   const {user}= useAuth();
-  const fetchData = async () => {
+  const fetchData = async () => { //This function is used to fetch the data from the firestore and then set the user role
     console.log('fetching data');
-    const querySnapshot = await getDocs(userRef);
+    const querySnapshot = await getDocs(userRef); //This is the query snapshot which is used to get the data from the firestore
     console.log('got query snapshot');
-    querySnapshot.forEach((doc) => {
+    querySnapshot.forEach((doc) => { //This is the for each loop which is used to iterate over the data and then set the user role
         console.log('inside for each loop');
-      if (doc.data().uid == userId) {
+      if (doc.data().uid == userId) { //This is the condition which is used to check if the user id is equal to the user id in the firestore
         console.log('user role before assigning is : ',doc.data().role);
-        userRole=doc.data().role;
+        userRole=doc.data().role; //Then the user role is set
         console.log('User Role is : ',userRole)
       }
       })
@@ -59,22 +59,7 @@ const [email, setEmail] = React.useState('')
  
 
 
-  useEffect(()=>{
-if(userRole=='admin'){
-  console.log('user role is admin');
-  loading=false;
-  navigation.navigate('AdminHome')
-}
-else if(userRole=='student'){
-  console.log('user role is student');
-  loading=false;
-  navigation.navigate('Home')
-}
-
-else{
-  console.log('no user role')
-}
-  },[userRole])
+  
   
   const handleSubmit=async()=>{
     if(email&&password){
@@ -82,20 +67,19 @@ else{
         
         setLoading(true);
 
-        //WHEN the sign in is succesfull i wanna use .then to then fetchData function
 
-        await signInWithEmailAndPassword(auth,email,password).then(()=>{
-         userId = auth.currentUser.uid;
+        await signInWithEmailAndPassword(auth,email,password).then(()=>{ //first the sign in happens
+         userId = auth.currentUser.uid;  //when the signin happens then the userID is set
         console.log('User ID is : ',userId);
         console.log('now entering the role settign phase');
-         fetchData().then(()=>{console.log('fetching is done', ' user role is ', userRole)
+         fetchData().then(()=>{console.log('fetching is done', ' user role is ', userRole) //then the fetching happens and once the fetching is complete the userRole is set
 
-         if(userRole=='admin'){
+         if(userRole=='admin'){  //Then the user role is checked and the user is navigated to the respective screen
           console.log('THEE user role is admin');
           setLoading(false);
           navigation.navigate('Admin')
         }
-        else if(userRole=='student'){
+        else if(userRole=='student'){  //Then the user role is checked and the user is navigated to the respective screen
           console.log('THEE user role is student');
           setLoading(false);
           navigation.navigate('Home')
@@ -112,6 +96,7 @@ else{
         
       } catch (error) {
         console.log('got error: ',error.message);
+        loading=false;
       }
     }
 
@@ -129,11 +114,11 @@ if(loading){
 else {
   return (
     
-    <View className="flex-1 bg-white " style={{backgroundColor:'#7b49de'}}>
+    <View className="flex-1  bg-white " style={{backgroundColor:'#7b49de'}}>
             <StatusBar backgroundColor={"#7b49de"}/>
             <StatusBar backgroundColor={"#7b49de"}/>
 
-      <SafeAreaView className="flex">
+      <SafeAreaView className="flex ">
 
         <View className="flex-row justify-start">
           <TouchableOpacity onPress={()=>navigation.goBack()} className="bg-yellow-400 ml-3 mt-4 rounded-tr-2xl p-2 rounded-bl-2xl">
@@ -154,7 +139,7 @@ else {
     </View>
 
       </SafeAreaView>
-      <View className="flex-1 bg-white mt-2  px-8 pt-8" style={{borderTopLeftRadius:50, borderTopRightRadius:50}}>
+      <View className="flex-1 bg-white mt-1  px-8 pt-8" style={{borderTopLeftRadius:50, borderTopRightRadius:50}}>
         <View className="form space-y-2">
           <Text className="text-gray-700 ml-4" style={{fontFamily:'Poppins-Bold'}}>
             Email Address
@@ -175,7 +160,7 @@ else {
           </TouchableOpacity>
         </View>
         <Text className="text-xl text-gray-700 text-center py-5" style={{fontFamily:"Poppins-Bold"}}>Or</Text>
-        <View className="flex-row justify-center space-x-12">
+        <View className="flex-row justify-center  space-x-12">
           <TouchableOpacity className="p-2 bg-gray-100 rounded-3xl">
             <Image source={require('../assets/apple.png')} style={{width:50, height:50}}/>
           </TouchableOpacity>
@@ -186,7 +171,7 @@ else {
             <Image source={require('../assets/facebook.png')} style={{width:50, height:50}}/>
           </TouchableOpacity>
         </View>
-        <View className="flex-row justify-center mt-2">
+        <View className="flex-row justify-center  ">
             <Text className="text-gray-500 font-semibold">Don't have an account? </Text>
             <TouchableOpacity onPress={()=>navigation.navigate('SignUp')}>
                 <Text className=" text-yellow-500" style={{fontFamily:"Poppins-Medium"}}>

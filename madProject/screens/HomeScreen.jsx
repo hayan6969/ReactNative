@@ -15,7 +15,6 @@ import { collection } from 'firebase/firestore';
 export default function HomeScreen() {
 
 
-
 const {user}= useAuth();
   const handleLogout = async()=>{
 await signOut(auth);

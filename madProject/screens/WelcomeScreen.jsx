@@ -62,7 +62,7 @@ const WelcomeScreen = ({navigation}) => {
             <Text className="text-white font-semibold">Already have an account? </Text>
             <TouchableOpacity onPress={()=>navigation.navigate('Login')}>
                 <Text className=" text-yellow-400" style={{fontFamily:"Poppins-Medium"}}>
-                    Login In
+                    Login
                 </Text>
             </TouchableOpacity>
         </View>

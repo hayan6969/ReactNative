@@ -109,11 +109,11 @@ if (!loaded) {
 
   return (
     
-      <View className="flex-1 bg-white " style={{backgroundColor:'#7b49de'}}>
+      <View className="flex-1  bg-white " style={{backgroundColor:'#7b49de'}}>
             <StatusBar backgroundColor={"#7b49de"}/>
             <StatusBar backgroundColor={"#7b49de"}/>
 
-      <SafeAreaView className="flex">
+      <SafeAreaView className="flex ">
 
         <View className="flex-row justify-start  mb-8">
         <TouchableOpacity onPress={()=>navigation.goBack()}  className="bg-yellow-400 ml-3 mt-4 rounded-tr-2xl p-2 rounded-bl-2xl">
@@ -134,7 +134,7 @@ if (!loaded) {
     </View>
 
       </SafeAreaView>
-      <View className="flex-1 bg-white mt-[-10px]  px-8 pt-4" style={{borderTopLeftRadius:50, borderTopRightRadius:50}}>
+      <View className="flex-1 bg-white mt-[-24px]  px-8 pt-4" style={{borderTopLeftRadius:50, borderTopRightRadius:50}}>
         <View className="form space-y-2">
         <Text className="text-gray-700 ml-4" style={{fontFamily:'Poppins-Bold'}}>
             Full Name
