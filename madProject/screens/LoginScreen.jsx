@@ -96,7 +96,9 @@ const [email, setEmail] = React.useState('')
         
       } catch (error) {
         console.log('got error: ',error.message);
-        loading=false;
+        setLoading(false);
+        alert(error.message)
+        
       }
     }
 
