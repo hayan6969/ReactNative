@@ -13,6 +13,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { useEffect } from 'react';
 import { useState } from 'react';
 import AdminProfile from '../adminScreens/AdminProfile';
+import AddRooms from '../adminScreens/AddRooms';
 
 
 
@@ -23,8 +24,9 @@ export default function AppNavigation() {
     return (
         
       
-        <Stack.Navigator initialRouteName='Welcome'>
+        <Stack.Navigator initialRouteName='AddRoom'>
                     <Stack.Screen options={{headerShown:false}} name="Admin" component={AdminHome} />
+                    <Stack.Screen options={{headerShown:false}} name="AddRoom" component={AddRooms} />
 
         <Stack.Screen options={{headerShown:false}} name="SignUp" component={SignUpScreen} />
           <Stack.Screen options={{headerShown:false}} name="Welcome" component={WelcomeScreen} />
