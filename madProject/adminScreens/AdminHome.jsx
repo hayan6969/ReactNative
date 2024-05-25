@@ -73,12 +73,12 @@ await signOut(auth).then(()=>{
             <Text style={{fontFamily:"Poppins-Bold"}} className="text-black text-2xl">  Courses</Text>
 
     </TouchableOpacity>
-    <TouchableOpacity className="border mb-4 flex items-center justify-start flex-row p-4 rounded-lg bg-yellow-400">
+    <TouchableOpacity onPress={()=>{navigation.navigate('AddInstructor')}} className="border mb-4 flex items-center justify-start flex-row p-4 rounded-lg bg-yellow-400">
     <FontAwesome5  name="chalkboard-teacher" size={24} color="black" />
                 <Text style={{fontFamily:"Poppins-Bold"}} className="text-black text-2xl"> Instructors</Text>
 
     </TouchableOpacity>
-    <TouchableOpacity className="border mb-4 flex items-center justify-start flex-row p-4 rounded-lg bg-yellow-400">
+    <TouchableOpacity onPress={()=>{navigation.navigate('AddRoom')}} className="border mb-4 flex items-center justify-start flex-row p-4 rounded-lg bg-yellow-400">
     <MaterialCommunityIcons name="office-building-marker-outline" size={24} color="black" />    
                 <Text style={{fontFamily:"Poppins-Bold"}} className="text-black text-2xl">  Rooms</Text>
 

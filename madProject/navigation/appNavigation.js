@@ -14,6 +14,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import AdminProfile from '../adminScreens/AdminProfile';
 import AddRooms from '../adminScreens/AddRooms';
+import AddInstructor from '../adminScreens/AddInstructor';
 
 
 
@@ -24,7 +25,8 @@ export default function AppNavigation() {
     return (
         
       
-        <Stack.Navigator initialRouteName='AddRoom'>
+        <Stack.Navigator initialRouteName='Welcome'>
+          <Stack.Screen options={{headerShown:false}} name="AddInstructor" component={AddInstructor} />
                     <Stack.Screen options={{headerShown:false}} name="Admin" component={AdminHome} />
                     <Stack.Screen options={{headerShown:false}} name="AddRoom" component={AddRooms} />
 

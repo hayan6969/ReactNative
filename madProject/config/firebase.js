@@ -26,3 +26,4 @@ const analytics = getAnalytics(app);
 const db = getFirestore(app);
 export const userRef= collection(db,"users");
 export const roomRef= collection(db,"rooms");
+export const instructorRef= collection(db,"instructors");

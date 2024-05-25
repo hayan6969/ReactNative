@@ -16,26 +16,24 @@ import { useState } from 'react';
 import { roomRef } from '../config/firebase';
 import SmallButtonLoader from '../screens/SmallButtonLoader';
 import MedLoader from '../screens/MedLoader';
+import { instructorRef } from '../config/firebase';
 
-
-
-const AddRooms = () => {
-
+const AddInstructor = () => {
     const [loading, setLoading] = React.useState(false);
     const [listLoading, setListLoading] = React.useState(false);
     
     const fetchData = async () => { 
         try {
             setListLoading(true);
-            const querySnapshot = await getDocs(roomRef);
-            const fetchedRooms = []; // Create an empty array to store fetched rooms
+            const querySnapshot = await getDocs(instructorRef);
+            const fetchedInstructors = []; // Create an empty array to store fetched rooms
         
             querySnapshot.forEach((doc) => {
-              fetchedRooms.push({ roomName: doc.data().name, roomType: doc.data().roomType });
+              fetchedInstructors.push({ instructorName: doc.data().instructorName, instructorNum: doc.data().instructorNum });
             });
         
-            setRooms(fetchedRooms); // Update rooms state with all fetched data
-            console.log('Rooms:', rooms.length); // Now should reflect the correct length
+            setInstructors(fetchedInstructors); // Update rooms state with all fetched data
+            console.log('Rooms:', instructors.length); // Now should reflect the correct length
             setListLoading(false);
           } catch (error) {
             console.error('Error fetching rooms:', error.message);
@@ -46,16 +44,17 @@ const AddRooms = () => {
     const addData = async () => {   
         try {
             setLoading(true);
-            await addDoc(roomRef, {
-                name: roomName,
-                roomType: value
+            await addDoc(instructorRef, {
+                instructorName: instructorName,
+                instructorNum: instructorNum
                 
               }).then(()=>{
-                console.log('room name:',roomName)
-                console.log('room type:',value)
+                console.log('instructor name:',instructorName)
+                console.log('instructor num:',instructorNum)
                 console.log('Data added');
                 setLoading(false);
-                setRoomName('');
+                setInstructorName('');
+                setInstructorNum('');
                 
               });
 
@@ -69,10 +68,10 @@ const AddRooms = () => {
               fetchData();
    },[])
 
-    const[roomName,setRoomName]=React.useState('')
-    const[roomType,setRoomType]=React.useState('')
+    const[instructorName,setInstructorName]=React.useState('')
+    const[instructorNum,setInstructorNum]=React.useState('')
 
-    const [rooms, setRooms] = useState([]);
+    const [instructors, setInstructors] = useState([]);
 
     const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -129,33 +128,15 @@ if (!loaded) {
 <View className="flex-1 bg-white mt-[-20px]  px-8 pt-5" style={{borderTopLeftRadius:50, borderTopRightRadius:50}}>
 <View className="form space-y-2">
   <Text className="text-gray-700 ml-4" style={{fontFamily:'Poppins-Bold'}}>
-    Room Name
+    Instructor Name
   </Text>
-  <TextInput value={roomName} onChangeText={(value)=>{setRoomName(value)}}  style={{fontFamily:"Poppins-Bold"}} className="p-4 bg-gray-100 text-gray-700 rounded-2xl" placeholder="Enter Room Name"/>
+  <TextInput value={instructorName} onChangeText={(value)=>{setInstructorName(value)}}  style={{fontFamily:"Poppins-Bold"}} className="p-4 bg-gray-100 text-gray-700 rounded-2xl" placeholder="Enter Room Name"/>
   <Text className="text-gray-700 ml-4" style={{fontFamily:'Poppins-Bold'}}>
-    Room Type
+    Instructor Contact No.
   </Text>
-  {/* <TextInput   style={{fontFamily:"Poppins-Bold"}} className="p-4 bg-gray-100 text-gray-700 rounded-2xl" placeholder="Enter your password"/> */}
+  <TextInput  value={instructorNum} onChangeText={(value)=>{setInstructorNum(value)}}  style={{fontFamily:"Poppins-Bold"}} className="p-4 bg-gray-100 text-gray-700 rounded-2xl" placeholder="Enter instructor contact"/>
 
-   <DropDownPicker
-      className="p-4 bg-gray-100 text-gray-700 rounded-2xl"
-      open={open}
-      value={value}
-      items={items}
-      placeholder='Select Room Type'
-      textStyle={{fontFamily:"Poppins-Bold",color:"#374151"}}
-      setOpen={setOpen}
-      setValue={setValue}
-      setItems={setItems}
-      onChangeValue={ ()=>{
-        console.log(value)
-        setRoomType(value)
-        console.log(roomType)
-      }
-
-      
-      }
-    />
+   
   
   
   <TouchableOpacity onPress={()=>{
@@ -165,19 +146,19 @@ if (!loaded) {
   
   }}   className="pu-3 bg-yellow-400 rounded-xl">
     <Text  style={{fontFamily:"Poppins-Bold"}} className=" text-2xl p-2 text-center text-gray-700">
-      {loading ? <View className="flex flex-row justify-center items-center"><SmallButtonLoader/></View> : "Add Room"}
+      {loading ? <View className="flex flex-row justify-center items-center"><SmallButtonLoader/></View> : "Add Instructor"}
     </Text>
   </TouchableOpacity>
 </View>
 {listLoading ? <MedLoader/> : <FlatList
-  data={rooms}
+  data={instructors}
   renderItem={({item})=>(
-    <View key={item.roomName} className="flex-row items-center justify-between border-2 border-black p-4 mt-2 bg-gray-100 rounded-2xl mb-2">
-      <Text style={{fontFamily:"Poppins-Bold"}} className="text-gray-700">{item.roomName}</Text>
-      <Text style={{fontFamily:"Poppins-Bold"}} className="text-gray-700">{item.roomType}</Text>
+    <View className="flex-row items-center justify-between border-2 border-black p-4 mt-2 bg-gray-100 rounded-2xl mb-2">
+      <Text style={{fontFamily:"Poppins-Bold"}} className="text-gray-700">{item.instructorName}</Text>
+      <Text style={{fontFamily:"Poppins-Bold"}} className="text-gray-700">{item.instructorNum}</Text>
     </View>
   )}
-  keyExtractor={(item)=>item.roomName}
+  keyExtractor={(item)=>item.instructorName}
   /> }
   
     
@@ -191,4 +172,4 @@ if (!loaded) {
   )
 }
 
-export default AddRooms
+export default AddInstructor
