@@ -29,3 +29,4 @@ export const roomRef= collection(db,"rooms");
 export const instructorRef= collection(db,"instructors");
 export const courseRef= collection(db,"courses");
 export const sectionRef= collection(db,"sections");
+export const timetableRef= collection(db,"timetables");

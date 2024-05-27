@@ -18,17 +18,21 @@ import AddInstructor from '../adminScreens/AddInstructor';
 import AddCourses from '../adminScreens/AddCourses';
 import AddSection from '../adminScreens/AddClass';
 import AddSectionn from '../adminScreens/AddSection';
+import StudentTimetable from '../screens/StudentTimetable';
 
 
 
 const Stack = createNativeStackNavigator();
 
 export default function AppNavigation() {
+
+ 
  
     return (
         
       
-        <Stack.Navigator initialRouteName='Welcome'>
+        <Stack.Navigator initialRouteName='StdTimetable'>
+          <Stack.Screen options={{headerShown:false}} name="StdTimetable" component={StudentTimetable} />
           <Stack.Screen options={{headerShown:false}} name="AddSection" component={AddSectionn} />
           <Stack.Screen options={{headerShown:false}} name="AddClass" component={AddSection} />
           <Stack.Screen options={{headerShown:false}} name="AddCourses" component={AddCourses} />
@@ -41,6 +45,7 @@ export default function AppNavigation() {
           
           <Stack.Screen options={{headerShown:false}} name="Login" component={LoginScreen} />
           <Stack.Screen options={{headerShown:false}} name="Aprofile" component={AdminProfile} />
+          
           
         </Stack.Navigator>
 
