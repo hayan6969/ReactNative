@@ -15,6 +15,9 @@ import { useState } from 'react';
 import AdminProfile from '../adminScreens/AdminProfile';
 import AddRooms from '../adminScreens/AddRooms';
 import AddInstructor from '../adminScreens/AddInstructor';
+import AddCourses from '../adminScreens/AddCourses';
+import AddSection from '../adminScreens/AddClass';
+import AddSectionn from '../adminScreens/AddSection';
 
 
 
@@ -26,6 +29,9 @@ export default function AppNavigation() {
         
       
         <Stack.Navigator initialRouteName='Welcome'>
+          <Stack.Screen options={{headerShown:false}} name="AddSection" component={AddSectionn} />
+          <Stack.Screen options={{headerShown:false}} name="AddClass" component={AddSection} />
+          <Stack.Screen options={{headerShown:false}} name="AddCourses" component={AddCourses} />
           <Stack.Screen options={{headerShown:false}} name="AddInstructor" component={AddInstructor} />
                     <Stack.Screen options={{headerShown:false}} name="Admin" component={AdminHome} />
                     <Stack.Screen options={{headerShown:false}} name="AddRoom" component={AddRooms} />

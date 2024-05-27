@@ -8,6 +8,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Fontisto } from '@expo/vector-icons';
 import { auth } from '../config/firebase';
 import { signOut } from 'firebase/auth';
+import { FontAwesome } from '@expo/vector-icons';
 
 
 import LottieView from 'lottie-react-native';
@@ -63,12 +64,8 @@ await signOut(auth).then(()=>{
     <View className="flex  flex-col items-center"><LottieView className=" w-[200px] mt-[-20px] h-[200px]" source={require('../assets/welcomee.json')} autoPlay loop />
     <Text style={{fontFamily:"Poppins-Bold"}} className="text-white  text-3xl">Welcome Admin! </Text></View>
    <View className="">
-   <TouchableOpacity className="border mb-4 flex items-center justify-start  flex-row p-4 rounded-lg bg-yellow-400">
-    <Fontisto name="preview" size={24} color="black" />
-        <Text style={{fontFamily:"Poppins-Bold"}} className="text-black text-2xl "> View Students</Text>
-
-    </TouchableOpacity>
-    <TouchableOpacity className="border mb-4 flex items-center justify-start flex-row p-4 rounded-lg bg-yellow-400">
+   
+    <TouchableOpacity onPress={()=>{navigation.navigate('AddCourses')}} className="border mb-4 flex items-center justify-start flex-row p-4 rounded-lg bg-yellow-400">
     <FontAwesome6 name="book-bookmark" size={24} color="black" />
             <Text style={{fontFamily:"Poppins-Bold"}} className="text-black text-2xl">  Courses</Text>
 
@@ -83,7 +80,12 @@ await signOut(auth).then(()=>{
                 <Text style={{fontFamily:"Poppins-Bold"}} className="text-black text-2xl">  Rooms</Text>
 
     </TouchableOpacity>
-    <TouchableOpacity className="border mb-4 flex items-center justify-start flex-row p-4 rounded-lg bg-yellow-400">
+    <TouchableOpacity onPress={()=>{navigation.navigate('AddSection')}} className="border mb-4 flex items-center justify-start  flex-row p-4 rounded-lg bg-yellow-400">
+    <MaterialCommunityIcons name="account-group-outline" size={24} color="black" />
+                <Text style={{fontFamily:"Poppins-Bold"}} className="text-black text-2xl "> Sections</Text>
+
+    </TouchableOpacity>
+    <TouchableOpacity onPress={()=>{navigation.navigate('AddClass')}} className="border mb-4 flex items-center justify-start flex-row p-4 rounded-lg bg-yellow-400">
     <MaterialCommunityIcons name="google-classroom" size={24} color="black" />
                     <Text style={{fontFamily:"Poppins-Bold"}} className="text-black text-2xl">  Classes</Text>
 
