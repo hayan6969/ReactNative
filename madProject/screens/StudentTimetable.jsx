@@ -20,9 +20,9 @@ import { instructorRef } from '../config/firebase';
 import { sectionRef } from '../config/firebase';
 
 const StudentTimetable = () => {
-    const timetable=[
+    const timetable=[  // array of objects for timetable
         [
-         {
+         { // Monday
            time: '9:00-10:00',
            course: 'Programming Fundamentals',
            instructor:'Arshad Iqbal'
@@ -51,7 +51,7 @@ const StudentTimetable = () => {
          
         ],
         [
-         {
+         { // Tuesday
            time: '10:00-11:00',
      
            course: 'Calculus',
@@ -74,7 +74,7 @@ const StudentTimetable = () => {
          },
         ],
          [
-         {
+         { // Wednesday
            time: '9:00-10:00',
            course: 'Physics',
            instructor:'Naveed Iqbal'
@@ -93,7 +93,7 @@ const StudentTimetable = () => {
          ],
          [
      
-           {
+           { // Thursday
              time: '9:00-10:00',
              course: 'Physics',
              instructor:'Naveed Iqbal'
@@ -120,7 +120,7 @@ const StudentTimetable = () => {
            }
            
          ],
-         [{
+         [{ // Friday
            time: '9:00-10:00',
            course: 'Programming Fundamentals',
            instructor:'Arshad Iqbal'

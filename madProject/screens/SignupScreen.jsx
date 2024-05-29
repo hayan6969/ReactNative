@@ -13,12 +13,15 @@ import React from 'react'
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth,db, userRef } from '../config/firebase';
 import useAuth from '../hooks/useAuth';
+import Loader from './Loader';
 
 
 export default function SignupScreen() {
 
   let userId='';
 
+
+  const [loading, setLoading] = React.useState(false);
   
   const navigation = useNavigation();
   const [email, setEmail] = React.useState('')
@@ -27,7 +30,7 @@ export default function SignupScreen() {
   const handleSubmit=async()=>{
     if(email&&password){
 
-      
+      setLoading(true);
     
      
 
@@ -48,9 +51,10 @@ export default function SignupScreen() {
             name,
             email,
             uid:createUserResult.user.uid,
-            role:'admin'
+            role:'student'
           });
           console.log('User data successfully added to Firestore. with uid : ',userId);
+          setLoading(false);
         } catch (error) {
           console.log('Error adding user data to firestore:', error.message , "uid: ",userId);
         }
@@ -65,6 +69,8 @@ export default function SignupScreen() {
       } catch (error) {
         console.log('got error: ',error.message);
       }
+
+    
 
     //  try {
     //    setUserId(user.uid);
@@ -107,7 +113,11 @@ if (!loaded) {
 }
 
 
-  return (
+  if(loading){
+    return <Loader/>
+  }
+  else{
+    return (
     
       <View className="flex-1  bg-white " style={{backgroundColor:'#7b49de'}}>
             <StatusBar backgroundColor={"#7b49de"}/>
@@ -181,4 +191,5 @@ if (!loaded) {
     </View>
     
   )
+  }
 }
